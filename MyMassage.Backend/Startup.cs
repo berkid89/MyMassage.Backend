@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using Serilog.Events;
 using Squire.Core.Middlewares;
 
 namespace MyMassage.Backend
@@ -38,7 +37,7 @@ namespace MyMassage.Backend
         {
             app.UseStaticFiles();
 
-            app.UseGlobalErrorHandler(true);
+            app.UseGlobalErrorHandler(env.IsDevelopment());
             app.UseCorrelationToken();
             app.UseRequestLogging();
             app.UsePerformanceLogging(1100);
