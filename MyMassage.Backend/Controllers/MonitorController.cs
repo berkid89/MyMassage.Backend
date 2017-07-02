@@ -1,4 +1,5 @@
-﻿using Squire.Monitoring.Controllers;
+﻿using MongoDB.Driver;
+using Squire.Monitoring.Controllers;
 using System;
 using System.Threading.Tasks;
 
@@ -6,9 +7,20 @@ namespace MyMassage.Backend.Controllers
 {
     public class MonitorController : MonitoringController
     {
-        public override Task<bool> HealthCheck()
+        private readonly ISettings settings;
+
+        public MonitorController(ISettings settings) : base()
         {
-            throw new NotImplementedException();
+            this.settings = settings;
+        }
+
+        public override async Task<bool> HealthCheck()
+        {
+            var mc = new MongoClient(settings.DatabaseUrl);
+            var db = mc.GetDatabase(settings.DatabaseName);
+            await db.ListCollectionsAsync();
+
+            return true;
         }
     }
 }

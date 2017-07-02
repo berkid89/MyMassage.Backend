@@ -1,43 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Events;
+using Squire.Core.Middlewares;
 
 namespace MyMassage.Backend
 {
     public class Startup
     {
+        public IConfigurationRoot Configuration { get; }
+        private readonly ILogger logger;
+        private readonly ISettings settings;
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+
             Configuration = builder.Build();
+            settings = new Settings(Configuration);
+            logger = ConfigureLogger(settings);
         }
 
-        public IConfigurationRoot Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
+            services.AddSingleton(p => settings);
+            services.AddScoped(p => logger);
+
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            app.UseStaticFiles();
 
-            app.UseMvc();
+            app.UseGlobalErrorHandler(true);
+            app.UseCorrelationToken();
+            app.UseRequestLogging();
+            app.UsePerformanceLogging(1100);
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "api/v1/{controller}/{action}/{id?}");
+            });
+        }
+
+        private ILogger ConfigureLogger(ISettings settings)
+        {
+            return new LoggerConfiguration()
+              .Enrich.FromLogContext()
+              .MinimumLevel.Verbose()
+              .WriteTo.ColoredConsole(settings.LogLevel, "{NewLine}{Timestamp:HH:mm:ss} [{Level}] ({CorrelationToken}) {Message}{NewLine}{Exception}")
+              .WriteTo.MongoDB($"{settings.DatabaseUrl}/{settings.DatabaseName}")
+              .CreateLogger();
         }
     }
 }
