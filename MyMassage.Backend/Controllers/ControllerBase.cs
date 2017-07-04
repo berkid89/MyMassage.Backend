@@ -19,8 +19,8 @@ namespace MyMassage.Backend.Controllers
         {
             this.settings = settings;
 
-            var mc = new MongoClient(settings.DatabaseUrl);
-            db = mc.GetDatabase(settings.DatabaseName);
+            var mc = new MongoClient(settings.Database_Url);
+            db = mc.GetDatabase(settings.Database_Name);
         }
 
         protected JsonResult JResult(object data)

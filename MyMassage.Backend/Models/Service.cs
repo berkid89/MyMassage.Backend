@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyMassage.Backend.Models
 {
-    public class Service
+    public class Service : BusinessEntityBase
     {
         [Required]
         public string Name { get; set; }

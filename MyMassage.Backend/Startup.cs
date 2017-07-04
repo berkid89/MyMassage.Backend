@@ -54,7 +54,7 @@ namespace MyMassage.Backend
               .Enrich.FromLogContext()
               .MinimumLevel.Verbose()
               .WriteTo.ColoredConsole(settings.LogLevel, "{NewLine}{Timestamp:HH:mm:ss} [{Level}] ({CorrelationToken}) {Message}{NewLine}{Exception}")
-              .WriteTo.MongoDB($"{settings.DatabaseUrl}/{settings.DatabaseName}")
+              .WriteTo.MongoDB($"{settings.Database_Url}/{settings.Database_Name}")
               .CreateLogger();
         }
     }

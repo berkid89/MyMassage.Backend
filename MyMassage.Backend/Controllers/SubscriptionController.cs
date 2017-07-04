@@ -31,7 +31,26 @@ namespace MyMassage.Backend.Controllers
                 db.GetCollection<Subscription>("subscriptions").DeleteOne(filter);
             }
 
-            return JResult("OK");
+            return JResult(null);
+        }
+
+        [HttpGet]
+        public IActionResult Edit()
+        {
+            var newsletter = db.GetCollection<Newsletter>("newsletters").Find(_ => true).First();
+
+            return JResult(newsletter);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Newsletter newsletter)
+        {
+            if (ModelState.IsValid)
+            {
+                db.GetCollection<Newsletter>("newsletters").ReplaceOne(_ => true, newsletter);
+            }
+
+            return JResult(newsletter);
         }
     }
 }

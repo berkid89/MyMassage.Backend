@@ -16,8 +16,8 @@ namespace MyMassage.Backend.Controllers
 
         public override async Task<bool> HealthCheck()
         {
-            var mc = new MongoClient(settings.DatabaseUrl);
-            var db = mc.GetDatabase(settings.DatabaseName);
+            var mc = new MongoClient(settings.Database_Url);
+            var db = mc.GetDatabase(settings.Database_Name);
             await db.ListCollectionsAsync();
 
             return true;
