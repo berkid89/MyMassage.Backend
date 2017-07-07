@@ -14,7 +14,7 @@ namespace MyMassage.Backend.Controllers
         [HttpGet]
         public IActionResult List()
         {
-            var services = db.GetCollection<Service>("services");
+            var services = db.GetCollection<Service>("services").Find(_ => true).ToList();
             return JResult(services);
         }
 
@@ -32,17 +32,16 @@ namespace MyMassage.Backend.Controllers
         [HttpGet]
         public IActionResult Edit(string id)
         {
-            var filter = Builders<Service>.Filter.Eq(p => p.Id, ObjectId.Parse(id));
+            var filter = Builders<Service>.Filter.Eq(p => p.Id, id);
             var service = db.GetCollection<Service>("services").Find(filter).First();
             return JResult(service);
         }
 
         [HttpPost]
-        public IActionResult Edit(string id, [FromBody] Service service)
+        public IActionResult Edit([FromBody] Service service)
         {
             if (ModelState.IsValid)
             {
-                service.Id = ObjectId.Parse(id);
                 var filter = Builders<Service>.Filter.Eq(p => p.Id, service.Id);
                 db.GetCollection<Service>("services").ReplaceOne(filter, service);
             }

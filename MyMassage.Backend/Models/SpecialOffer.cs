@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MyMassage.Backend.Models
 {
-    public class SpecialOffer
+    public class SpecialOffer : BusinessEntityBase
     {
         public bool HasSpecialOffer { get; set; }
 

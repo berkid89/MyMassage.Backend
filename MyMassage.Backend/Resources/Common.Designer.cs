@@ -71,7 +71,7 @@ namespace MyMassage.Backend.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;lt;html&amp;gt;&amp;lt;body&amp;gt;&amp;lt;p&amp;gt;Név: {0}&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;Email: {1}&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;Üzenet: {2}&amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;.
+        ///   Looks up a localized string similar to &lt;p&gt;&lt;strong&gt;Név:&lt;/strong&gt; {0}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; {1}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Üzenet:&lt;/strong&gt; {2}&lt;/p&gt;.
         /// </summary>
         internal static string ContactMessageTemplate {
             get {

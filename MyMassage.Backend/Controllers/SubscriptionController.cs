@@ -27,7 +27,7 @@ namespace MyMassage.Backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                var filter = Builders<Subscription>.Filter.Eq(p => p.Id, ObjectId.Parse(id));
+                var filter = Builders<Subscription>.Filter.Eq(p => p.Id, id);
                 db.GetCollection<Subscription>("subscriptions").DeleteOne(filter);
             }
 
@@ -43,7 +43,7 @@ namespace MyMassage.Backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Newsletter newsletter)
+        public IActionResult Edit([FromBody] Newsletter newsletter)
         {
             if (ModelState.IsValid)
             {

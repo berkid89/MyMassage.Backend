@@ -15,17 +15,17 @@ namespace MyMassage.Backend.Controllers
         [HttpGet]
         public IActionResult Edit()
         {
-            var specialOffer = db.GetCollection<SpecialOffer>("newsletters").Find(_ => true).First();
+            var specialOffer = db.GetCollection<SpecialOffer>("offers").Find(_ => true).First();
 
             return JResult(specialOffer);
         }
 
         [HttpPost]
-        public IActionResult Edit(SpecialOffer specialOffer)
+        public IActionResult Edit([FromBody] SpecialOffer specialOffer)
         {
             if (ModelState.IsValid)
             {
-                db.GetCollection<SpecialOffer>("newsletters").ReplaceOne(_ => true, specialOffer);
+                db.GetCollection<SpecialOffer>("offers").ReplaceOne(_ => true, specialOffer);
             }
 
             return JResult(specialOffer);

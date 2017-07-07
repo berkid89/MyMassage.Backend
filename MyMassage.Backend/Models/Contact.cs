@@ -2,7 +2,7 @@
 
 namespace MyMassage.Backend.Models
 {
-    public class Contact : BusinessEntityBase
+    public class Contact
     {
         [Required]
         public string Name { get; set; }
