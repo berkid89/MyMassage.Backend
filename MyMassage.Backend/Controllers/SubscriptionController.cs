@@ -16,7 +16,12 @@ namespace MyMassage.Backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.GetCollection<Subscription>("subscriptions").InsertOne(subscription);
+                var collection = db.GetCollection<Subscription>("subscriptions");
+                var filter = Builders<Subscription>.Filter.Eq(p => p.Email, subscription.Email);
+                var same = collection.Find(filter).FirstOrDefault();
+
+                if (same == null)
+                    collection.InsertOne(subscription);
             }
 
             return JResult(subscription);
