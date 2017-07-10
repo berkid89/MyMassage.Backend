@@ -13,7 +13,7 @@ namespace MyMassage.Backend.Controllers
         public OfferController(ISettings settings) : base(settings) { }
 
         [HttpGet]
-        public IActionResult Edit()
+        public IActionResult Special()
         {
             var specialOffer = db.GetCollection<SpecialOffer>("offers").Find(_ => true).First();
 
@@ -21,7 +21,7 @@ namespace MyMassage.Backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit([FromBody] SpecialOffer specialOffer)
+        public IActionResult Special([FromBody] SpecialOffer specialOffer)
         {
             if (ModelState.IsValid)
             {

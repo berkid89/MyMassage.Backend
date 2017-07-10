@@ -28,7 +28,6 @@ namespace MyMassage.Backend.Controllers
                 using (var client = new SmtpClient())
                 {
                     client.Connect(settings.SMTP_Host, settings.SMTP_Port, settings.SMTP_EnableSsl);
-                    client.AuthenticationMechanisms.Remove("XOAUTH2");
                     client.Authenticate(settings.SMTP_UserName, settings.SMTP_Password);
                     client.Send(message);
                     client.Disconnect(true);
