@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Squire.Core.Middlewares;
+using System.Text;
 
 namespace MyMassage.Backend
 {
@@ -40,7 +42,20 @@ namespace MyMassage.Backend
             app.UseGlobalErrorHandler(env.IsDevelopment());
             app.UseCorrelationToken();
             app.UseRequestLogging();
-            app.UsePerformanceLogging(1100);
+            app.UsePerformanceLogging(settings.PerformaceWarningMinimumInMS);
+
+            app.UseJwtBearerAuthentication(new JwtBearerOptions()
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.AppSecret)),
+                }
+            });
 
             app.UseCors(builder => builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 

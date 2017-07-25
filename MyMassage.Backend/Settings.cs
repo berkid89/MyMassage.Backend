@@ -17,6 +17,12 @@ namespace MyMassage.Backend
         string SMTP_Host { get; }
         int SMTP_Port { get; }
         bool SMTP_EnableSsl { get; }
+
+        string AppSecret { get; }
+
+        int PerformaceWarningMinimumInMS { get; }
+
+        int TokenExpirationInMin { get; }
     }
 
     public class Settings : ISettings
@@ -34,6 +40,12 @@ namespace MyMassage.Backend
             SMTP_Host = config["SMTP:Host"];
             SMTP_Port = Convert.ToInt32(config["SMTP:Port"]);
             SMTP_EnableSsl = Convert.ToBoolean(config["SMTP:EnableSsl"]);
+
+            AppSecret = config["AppSecret"];
+
+            PerformaceWarningMinimumInMS = Convert.ToInt32(config["PerformaceWarningMinimumInMS"]);
+
+            TokenExpirationInMin = Convert.ToInt32(config["TokenExpirationInMin"]);
         }
 
         public LogEventLevel LogLevel { get; private set; }
@@ -47,5 +59,11 @@ namespace MyMassage.Backend
         public string SMTP_Host { get; private set; }
         public int SMTP_Port { get; private set; }
         public bool SMTP_EnableSsl { get; private set; }
+
+        public string AppSecret { get; private set; }
+
+        public int PerformaceWarningMinimumInMS { get; private set; }
+
+        public int TokenExpirationInMin { get; private set; }
     }
 }

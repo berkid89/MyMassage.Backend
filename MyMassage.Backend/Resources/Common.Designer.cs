@@ -23,7 +23,7 @@ namespace MyMassage.Backend.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Common {
+    public class Common {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -37,7 +37,7 @@ namespace MyMassage.Backend.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyMassage.Backend.Resources.Common", typeof(Common).GetTypeInfo().Assembly);
@@ -52,7 +52,7 @@ namespace MyMassage.Backend.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -64,7 +64,7 @@ namespace MyMassage.Backend.Resources {
         /// <summary>
         ///   Looks up a localized string similar to uzenet a honlaprol.
         /// </summary>
-        internal static string ContactMessageSubject {
+        public static string ContactMessageSubject {
             get {
                 return ResourceManager.GetString("ContactMessageSubject", resourceCulture);
             }
@@ -73,9 +73,18 @@ namespace MyMassage.Backend.Resources {
         /// <summary>
         ///   Looks up a localized string similar to &lt;p&gt;&lt;strong&gt;Név:&lt;/strong&gt; {0}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; {1}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Üzenet:&lt;/strong&gt; {2}&lt;/p&gt;.
         /// </summary>
-        internal static string ContactMessageTemplate {
+        public static string ContactMessageTemplate {
             get {
                 return ResourceManager.GetString("ContactMessageTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hibás belépési adatok.
+        /// </summary>
+        public static string InvalidCreds {
+            get {
+                return ResourceManager.GetString("InvalidCreds", resourceCulture);
             }
         }
     }

@@ -123,4 +123,7 @@
   <data name="ContactMessageTemplate" xml:space="preserve">
     <value>&lt;p&gt;&lt;strong&gt;Név:&lt;/strong&gt; {0}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; {1}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Üzenet:&lt;/strong&gt; {2}&lt;/p&gt;</value>
   </data>
+  <data name="InvalidCreds" xml:space="preserve">
+    <value>Hibás belépési adatok</value>
+  </data>
 </root>
